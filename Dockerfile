@@ -12,6 +12,9 @@ ENV OLLAMA_DEBUG false
 # Never unload model weights from the GPU
 ENV OLLAMA_KEEP_ALIVE -1
 
+# Add the SBOM
+ADD ./bom.json /bom.json
+
 # Store the model weights in the container image
 ENV MODEL gemma3:1b
 RUN ollama serve & sleep 5 && ollama pull $MODEL

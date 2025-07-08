@@ -19,6 +19,21 @@ jobs:
         run: |
           echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM from go.sum
+        run: |
+          # Extract the downloaded Ollama source
+          LATEST=$(gh api repos/ollama/ollama/releases/latest --jq '.tag_name')
+          EXTRACTED_DIR="ollama-${LATEST#v}"
+          
+          # Generate SBOM from the extracted Go project
+          syft $EXTRACTED_DIR -o cyclonedx-json=bom.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
