@@ -1,0 +1,1 @@
+A Docker image based off the instructions at https://cloud.google.com/run/docs/tutorials/gpu-gemma-with-ollama.
