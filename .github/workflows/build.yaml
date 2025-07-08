@@ -40,6 +40,8 @@ jobs:
           
           # Generate SBOM from the extracted Go project
           syft $EXTRACTED_DIR -o cyclonedx-json=bom.json
+          
+          cat bom.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
