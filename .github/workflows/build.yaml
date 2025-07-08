@@ -24,6 +24,8 @@ jobs:
           LATEST=$(gh api repos/target-owner/target-repository/releases/latest --jq '.tag_name')
           wget https://github.com/target-owner/target-repository/archive/refs/tags/$LATEST.tar.gz
           tar -xzf $LATEST.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Syft
         run: |
