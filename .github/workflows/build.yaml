@@ -24,6 +24,7 @@ jobs:
           LATEST=$(gh api repos/ollama/ollama/releases/latest --jq '.tag_name')
           wget https://github.com/ollama/ollama/archive/refs/tags/$LATEST.tar.gz
           tar -xzf $LATEST.tar.gz
+          ls -la ollama-${LATEST#v}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
