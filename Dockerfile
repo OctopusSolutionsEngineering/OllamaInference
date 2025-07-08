@@ -13,7 +13,7 @@ ENV OLLAMA_DEBUG false
 ENV OLLAMA_KEEP_ALIVE -1
 
 # Add the SBOM
-ADD ./bom.json /bom.json
+ADD ./bom.json /opt/bom.json
 
 # Store the model weights in the container image
 ENV MODEL gemma3:1b
