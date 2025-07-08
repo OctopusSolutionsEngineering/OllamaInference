@@ -19,6 +19,12 @@ jobs:
         run: |
           echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
+      - name: Download and extract Ollama source
+        run: |
+          LATEST=$(gh api repos/target-owner/target-repository/releases/latest --jq '.tag_name')
+          wget https://github.com/target-owner/target-repository/archive/refs/tags/$LATEST.tar.gz
+          tar -xzf $LATEST.tar.gz
+
       - name: Install Syft
         run: |
           curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
