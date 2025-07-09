@@ -28,9 +28,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Syft
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+      - name: Install CycloneDX Go module
+        run: go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
 
       - name: Generate SBOM from go.sum
         run: |
@@ -39,7 +38,7 @@ jobs:
           EXTRACTED_DIR="ollama-${LATEST#v}"
           
           # Generate SBOM from the extracted Go project
-          syft $EXTRACTED_DIR -o cyclonedx-json=bom.json
+          cyclonedx-gomod mod -json -output bom.json "$EXTRACTED_DIR"
           
           cat bom.json
         env:
