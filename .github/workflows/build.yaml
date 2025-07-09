@@ -38,7 +38,7 @@ jobs:
           EXTRACTED_DIR="ollama-${LATEST#v}"
           
           # Generate SBOM from the extracted Go project
-          cyclonedx-gomod mod -json -output bom.json "$EXTRACTED_DIR"
+          ~/go/bin/cyclonedx-gomod mod -json -output bom.json "$EXTRACTED_DIR"
           
           cat bom.json
         env:
